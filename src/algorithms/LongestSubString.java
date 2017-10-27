@@ -40,7 +40,7 @@ public class LongestSubString {
 
     public static void main(String args[]){
         LongestSubString longestSubString=new LongestSubString();
-        int l=longestSubString.longestSubString2("abcddef");
+        int l=longestSubString.longestSubString("abcddef");
         System.out.println(l);
     }
 
