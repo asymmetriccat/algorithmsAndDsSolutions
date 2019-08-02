@@ -24,16 +24,41 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class LongestPalindrome {
-    public int longestPalindrome(String s) {
-        Set<Character> set=new HashSet<>();  //use set to find characters appeared even times
-        int count=0;
-        for(int i=0; i<s.length(); i++){
-            if(set.contains(s.charAt(i))) {
-                set.remove(s.charAt(i));
-                count++; //count for how many pairs of same characters, like "aa", "bb", "aa", count will equal 3.
-            }
-            else set.add(s.charAt(i));
+    static String longestPalSubstr(String s) {
+        int n = s.length();
+        if(s==null || n<2){
+            return s;
         }
-        return set.isEmpty()?count*2:(count*2+1); //A empty set means string s contains even characters and each is paired, while a unempty set means there are odd characters in s.
+        int left =0;
+        int right =0;
+        boolean[][] isPalindrome= new boolean[n][n];  //use a 2D array to store the previous boolean palindrome result
+
+        for(int i=1; i<n; i++){
+            for(int j=0; j<i; j++){
+                boolean isSubstringPalindrome = isPalindrome[j+1][i-1] || i-j<=2;
+                if(s.charAt(j) ==s.charAt(i) && isSubstringPalindrome){
+                    isPalindrome[i][j]=true;
+                    System.out.println("i: " + i + " j: " +j + ": " +isPalindrome[i][j]);
+                    if(i-j >right-left) {
+                        left =j;
+                        System.out.println("left:" + left);
+                        right=i;
+                        System.out.println("right:" + right);
+                    }
+                }
+            }
+        }
+        System.out.println("result:" + s.substring(left, right+1));
+        return s.substring(left, right+1);
     }
+
+    // Driver program to test above functions
+    public static void main(String[] args) {
+
+        String str = "aaaa"; // "aaaa";
+        System.out.println("Length is: " +
+                longestPalSubstr(str));
+    }
+
+
 }
