@@ -16,9 +16,23 @@ public class StrStr {
         }
     }
 
+    public int strStr_1(String haystack, String needle) {
+        if(needle ==null || needle.length() ==0) return 0;
+        if(haystack==null || haystack.length()==0) return -1;
+
+        for(int i=0; i<haystack.length(); i++){
+            for(int j=i+1; j<=haystack.length(); j++){
+                if(haystack.substring(i, j).equals(needle)){
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
     public static void main(String args[]){
         StrStr strStr=new StrStr();
-        int index=strStr.strStr2(" you are good", "good");
+        int index=strStr.strStr_1("a", "a");
         System.out.println(index);
     }
 }
