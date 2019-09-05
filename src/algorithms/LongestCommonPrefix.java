@@ -33,8 +33,29 @@ public class LongestCommonPrefix {
         return sb.toString();
 
 }
+
+    public static String longestCommonPrefix_2(String[] strs) {
+        if(strs==null) return "";
+        if(strs.length==0) return "";
+        StringBuilder sb= new StringBuilder("");
+        String first=strs[0];
+        int i;
+        int index=1;
+        while(index<strs[0].length()){
+            for(i=1; i<strs.length; i++){
+                if(strs[i].indexOf(first.substring(0,index))!=0){
+                    break;
+                }
+            }
+            if(i==strs.length) index++;
+            else break;
+        }
+        return index==1? "": first.substring(0,index);
+    }
+
+
   public static void main(String arg[]){
-        String[] strArr = {"aca","cba"};
-        LongestCommonPrefix.longestCommonPrefix(strArr);
+        String[] strArr = {"flower","flow","flight"};
+        LongestCommonPrefix.longestCommonPrefix_2(strArr);
   }
 }

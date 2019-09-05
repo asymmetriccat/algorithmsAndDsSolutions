@@ -20,7 +20,7 @@ What if nums1's size is small compared to nums2's size? Which algorithm is bette
 What if elements of nums2 are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?
  */
 public class IntersectionOfTwoArraysII {
-    public int[] intersect(int[] nums1, int[] nums2) {
+    public int[] intersectt(int[] nums1, int[] nums2) {
      Map<Integer, Integer> map=new HashMap<>();
      List<Integer> list=new ArrayList<>();
      for(int i=0; i<nums1.length; i++){
@@ -40,11 +40,37 @@ public class IntersectionOfTwoArraysII {
      return list.stream().mapToInt(a->a).toArray();
     }
 
+    public int[] intersect(int[] nums1, int[] nums2) {
+        if(nums1==null || nums2==null) return new int[]{};
+        List<Integer> resultList =new ArrayList<>();
+        Map<Integer, Integer> intMap = new HashMap<>();
+        for(int i=0; i<nums1.length; i++){
+            if(intMap.containsKey(nums1[i])){
+                intMap.put(nums1[i], intMap.get(nums1[i])+1);
+            }
+            else{
+                intMap.put(nums1[i], 1);
+            }
+        }
+        for(int j=0; j<nums2.length; j++){
+            if(intMap.containsKey(nums2[j]) && intMap.get(nums2[j])>0){
+                intMap.put(nums2[j], intMap.get(nums2[j])-1);
+                resultList.add(nums2[j]);
+            }
+        }
+        int [] results = new int[resultList.size()];
+        for(int i=0; i<results.length-1; i++){
+            results[i]=resultList.get(i);
+        }
+        return results;
+    }
+
+
     public static void main(String args[]){
-        int[] nums1={1};
-        int[]nums2={1};
+        int[] nums1={1,2,2,1};
+        int[]nums2={2,2};
         IntersectionOfTwoArraysII intersectionOfTwoArraysII =new IntersectionOfTwoArraysII();
-        int[] result=intersectionOfTwoArraysII.intersect(nums1,nums2);
+        int[] result=intersectionOfTwoArraysII.intersectt(nums1, nums2);
         Arrays.stream(result).forEach(System.out::println);
 
     }
